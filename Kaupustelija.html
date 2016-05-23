@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+	    <meta charset="utf-8" />'
+        <title>Kaupustelija</title> 		
+		<style type="text/css" media="screen">	
+			@font-face {
+				font-family: 'Montserrat Alternates';
+				src: url('MontserratAlternates-Regular.ttf'); 
+				src: 
+					local('Montserrat Alternates'),
+					local('Montserrat-Alternates'),
+					url('MontserratAlternates-Regular.ttf') 
+					format('opentype');
+			}
+			/*bold version*/
+			@font-face {
+				font-family: 'lovelyFont';
+				src: url('MontserratAlternates-Bold.ttf'); 
+				src: 
+					local('Montserrat Alternates Bold'),
+					local('Montserrat-Alternates-Bold'),
+					url('MontserratAlternates-Bold.ttf') 
+					format('opentype');
+				font-weight: bold;
+			}	
+			* {
+				margin:0;
+				padding:0;
+				font:12pt 'Montserrat Alternates', Arial;
+			}
+
+			body {
+			  background-color:#34495e;
+			  padding-bottom:50px;
+			}
+
+			.field {
+			  display:flex;
+			  position:realtive;
+			  margin:5em auto;
+			  margin-top: 20px;
+			  width:40%;
+			  flex-direction:row;
+			  box-shadow:
+			   1px 1px 0 rgb(22, 160, 133),
+			   2px 2px 0 rgb(22, 160, 133),
+			   3px 3px 0 rgb(22, 160, 133),
+			   4px 4px 0 rgb(22, 160, 133),
+			   5px 5px 0 rgb(22, 160, 133),
+			   6px 6px 0 rgb(22, 160, 133),
+			   7px 7px 0 rgb(22, 160, 133)
+			  ;
+			}
+
+			.field>input[type=text],
+			.field>button {
+			  display:block;
+			  font:1.2em 'Montserrat Alternates';
+			}
+
+			.field>input[type=text] {
+			  flex:1;
+			  padding:0.6em;
+			  border:0.2em solid rgb(26, 188, 156);
+			}
+
+			.field>button {
+			  padding:0.6em 0.8em;
+			  background-color:rgb(26, 188, 156);
+			  color:white;
+			  border: none;
+			}
+			
+
+			.list{
+				width:600px;
+				margin:0 auto;
+				margin-left;40px;
+			}
+
+			.list ol{
+				counter-reset: li;
+				list-style: none;
+				*list-style: decimal;
+				font-size: 15px;
+				font-family:'Montserrat Alternates';
+				padding: 0;
+			}
+
+			.list ol ol{
+				margin: 0 0 0 2em;
+			}
+
+			.list a{
+				position: relative;
+				display: block;
+				padding: 1.5em 1.4em 1.4em 2em;
+				*padding: 1.4em;
+			    color: white;
+				text-decoration: none;
+				transition: all .2s ease-in-out;
+				border-bottom: 1px solid rgba(26, 188, 156,0.2);
+			}
+
+			.list a:hover{
+				background-color: white;
+				text-decoration:none;
+				transform: scale(1.1);
+				color: rgb(26, 188, 156);
+			}
+
+
+
+			span{
+				position: absolute;
+				display:block;
+				right:7%;
+				padding: 0;
+				margin-top: -40px;
+				height: 2em;
+				width: 20%;
+				line-height: 2em;
+				text-align: right;
+				font-weight: bold;
+				font-size: 20px;
+				color: rgb(26, 188, 156);
+			}			
+		</style>
+    </head>
+    <body>
+		<div class="field" id="searchform">
+		  <input type="text" onkeyup="search()" id="searchterm" placeholder="Mitä tuotetta etsit?" />
+		  <button type="button" id="search" onClick="add()">Lisää +</button>
+		</div>	
+		
+		<div class="list">
+		<ol id="output">
+	
+		</ol>
+		</div>
+    </body>
+		<script type="text/javascript">	
+			var strStart = '<li><a href="#"';
+			var strMiddle = '<span>';
+			var strEnd = '€</span></a></li>';
+			var finalString = '';
+			var hits = '';
+			var myStringArray=new Array(11)
+			for (i=0; i <myStringArray.length; i++)
+				myStringArray[i]=new Array(3)
+				
+			myStringArray[0][0]="Amerikan Pekoni";
+			myStringArray[0][1]="8,38";
+			myStringArray[0][2]="7,38";
+			myStringArray[1][0]="Tomaattisose";
+			myStringArray[1][1]="7,38";
+			myStringArray[1][2]="9,38";
+			myStringArray[2][0]="HK Sika-nauta jauheliha 1 kg (3,99/kg)";
+			myStringArray[2][1]="9,38";
+			myStringArray[2][2]="9,38";	
+			myStringArray[3][0]="Lohifilee Lohifilee n. 800 g, vakuumipakattu (10,95/kg)";
+			myStringArray[3][1]="9,38";
+			myStringArray[3][2]="9,38";		
+			myStringArray[4][0]="Ohukaiset 400 g (3,75/kg)";
+			myStringArray[4][1]="9,38";
+			myStringArray[4][2]="9,38";
+			myStringArray[5][0]=" Atria Broilerin reisikoipi n. 1,1 kg";
+			myStringArray[5][1]="8,38";
+			myStringArray[5][2]="7,38";
+			myStringArray[6][0]="Suomalainen porkkana 1 kg pussi (0,99/kg) ";
+			myStringArray[6][1]="7,38";
+			myStringArray[6][2]="9,38";
+			myStringArray[7][0]="Suomalainen peruna 2 kg, vihreä, keltainen tai punainen pussi (0,50/kg) ";
+			myStringArray[7][1]="9,38";
+			myStringArray[7][2]="9,38";	
+			myStringArray[8][0]="Kokkikartano Kiusaukset 700 g";
+			myStringArray[8][1]="9,38";
+			myStringArray[8][2]="9,38";		
+			myStringArray[9][0]="Aito nakit ja UUTUUS Aito nakki lisäaineeton 350-420 g";
+			myStringArray[9][1]="9,38";
+			myStringArray[9][2]="9,38";	
+			myStringArray[10][0]="Dr. Oetker Paula vanukkaat 4 x 125 g";
+			myStringArray[10][1]="9,38";
+			myStringArray[10][2]="9,38";			
+			myStringArray.sort(); 
+			var arrayLength = myStringArray.length;
+			for (var i = 0; i < arrayLength; i++) {
+				finalString = finalString + (strStart + 'onClick=show('+ i + ')>' + myStringArray[i][0] + strMiddle + myStringArray[i][1] + strEnd);
+			}	
+			document.getElementById('output').innerHTML = finalString;	
+
+			
+			function search(){	
+			    hits = '';
+				var arrayLength = myStringArray.length;
+				var searchTerm = document.getElementById('searchterm').value;
+				if(document.getElementById('searchterm').value.length == 0){
+					document.getElementById('output').innerHTML = finalString;
+				} else {
+					console.log(searchTerm);
+					for (var i = 0; i < arrayLength; i++) {
+						if(myStringArray[i][0].toLowerCase().indexOf(searchTerm) >= 0){
+							hits = hits + strStart + 'onClick=show('+ i + ')>' + myStringArray[i][0] + strMiddle + myStringArray[i][1] + strEnd;
+						}
+					}
+				document.getElementById('output').innerHTML = hits;
+				}					
+			}
+
+
+			function add(){	
+				alert("Lisätään indexiin: " + (myStringArray.length + 1))	
+			}	
+
+
+			function show(inputArray){	
+				alert("Näytetään kaupat: " + myStringArray[inputArray])	
+			}				
+	</script>		
+</html>
